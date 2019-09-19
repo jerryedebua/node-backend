@@ -1,0 +1,16 @@
+{
+  "name": "node-backend",
+  "version": "0.0.1",
+  "description": "A purely Nodejs backend",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "npm test"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1"
+  }
+}
