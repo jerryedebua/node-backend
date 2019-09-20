@@ -6,10 +6,7 @@ module.exports = {
     var parsedUrl = url.parse(req.url).pathname;
     return require('./routes').find(route => (
       route.url === parsedUrl &&
-      (
-        route.method.toUpperCase() === req.method ||
-        req.method === 'OPTIONS'
-      )
+      route.method.toUpperCase() === req.method
     ));
   },
 
