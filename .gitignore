@@ -12,6 +12,8 @@
 !.editorconfig
 !.eslintignore
 !.eslintrc.js
+!.eslintrc.json
+!.prettierrc.json
 !.flake8
 !.gitattributes
 !.github

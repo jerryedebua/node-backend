@@ -1,31 +1,29 @@
 module.exports = {
-
   getData: function () {
     return new Promise(function (resolve, reject) {
-      connectToData().then(function (connection) {
+      connectToData()
+        .then(function (connection) {
+          let testData = []
 
-        var testData = [];
-
-        resolve(connection.query(testData));
-
-      }).catch(function (error) {
-        console.error(error);
-      })
-    });
+          resolve(connection.query(testData))
+        })
+        .catch(function (error) {
+          console.error(error) // eslint-disable-line
+        })
+    })
   }
+}
 
-};
-
-var query = function (data) {
+let query = function (data) {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
-      resolve(data);
-    }, 1000);
-  });
-};
+      resolve(data)
+    }, 1000)
+  })
+}
 
-var connectToData = new Promise(function (resolve, reject) {
+const connectToData = new Promise(function (resolve, reject) {
   setTimeout(function () {
-    resolve({ query });
-  }, 800);
-});
+    resolve({ query })
+  }, 800)
+})

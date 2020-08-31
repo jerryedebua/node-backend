@@ -1,5 +1,3 @@
-var userRoutes = require('./user');
+let userRoutes = require('./user')
 
-module.exports = [
-  ...userRoutes,
-];
+module.exports = [...userRoutes]
