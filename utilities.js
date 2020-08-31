@@ -2,22 +2,35 @@ var url = require('url');
 
 module.exports = {
 
-  getPresetRequest: function (req) {
-    var parsedUrl = url.parse(req.url).pathname;
+  handleCors: function () {
+    this.response.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE');
+    this.response.setHeader('Access-Control-Allow-Origin', '*'); // Specify your origins
+  },
+
+  getPresetRequest: function () {
+    var parsedUrl = url.parse(this.request.url).pathname;
     return require('./routes').find(route => (
       route.url === parsedUrl &&
-      route.method.toUpperCase() === req.method
+      route.method.toUpperCase() === this.request.method
     ));
   },
 
-  getRequestToken: function (req) {
+  getRequestToken: function () {
     if (
-      req.headers.authorization &&
-      req.headers.authorization.split(' ')[0] === 'Bearer'
+      this.request.headers.authorization &&
+      this.request.headers.authorization.split(' ')[0] === 'Bearer'
     ) {
-      return req.headers.authorization.split(' ')[1];
+      return this.request.headers.authorization.split(' ')[1];
     }
     return null;
+  },
+
+  sendResponse: function (data, statusCode = 200, headers = { 'Content-Type': 'application/json' }) {
+    Object.keys(headers).forEach(function (header) {
+      this.response.setHeader(header, headers[header]);
+    });
+    this.response.statusCode = statusCode;
+    this.response.end(data, 'utf-8');
   }
 
 }

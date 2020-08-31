@@ -7,16 +7,13 @@ module.exports = [
     method: 'post',
     callback: function (req, res) {
 
-      handleResponse(new Promise(resolve => {
-
-        setTimeout(function () {
-          resolve(JSON.stringify({
-            name: 'User 1',
-            token: createToken({ id: 1 })
-          }));
-        }, 1000);
-
-      }), req, res);
+      handleResponse.bind(this)(async function () {
+        // Make data request or write logic here
+        return {
+          name: 'User 1',
+          token: createToken({ id: 1 })
+        };
+      }, req, res);
 
     },
     isPublic: true
