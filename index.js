@@ -1,7 +1,14 @@
-let http = require('http')
+const result = require('dotenv').config()
+if (result.error) throw result.error
 
-let handler = require('./request-handler')
-let port = 8000
+// Initiate redis connection
+require('./redis')
+
+const http = require('http')
+const port = process.env.SERVER_PORT
+
+const handler = require('./request-handler')
 
 http.createServer(handler).listen(port)
-console.info(`Server at http://127.0.0.1:${port}/`) // eslint-disable-line
+
+console.info(`Server at localhost:${port}/`) // eslint-disable-line
