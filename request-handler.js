@@ -17,15 +17,18 @@ function handler(request, response) {
     if (presetRequest) {
       /* Execute route callbacks after request data is processed */
       let data = []
-      request.on('data', (chunk) => data.push(chunk))
+      request.on('data', chunk => data.push(chunk))
 
       request.on('end', () => {
-        if (data.length) request.body = JSON.parse(data)
+        if (data.length) {
+          request.body = JSON.parse(data)
+        }
 
         const callback = presetRequest.callback.bind(this)
 
-        if (presetRequest.isPublic) callback(request, response)
-        else
+        if (presetRequest.isPublic) {
+          callback(request, response)
+        } else {
           try {
             let token = this.getRequestToken()
             request.user = jwt.verifyToken(token)
@@ -36,9 +39,10 @@ function handler(request, response) {
               'Content-Type': 'text/plain'
             })
           }
+        }
       })
-    } else checkFile.bind(this)()
-  }.bind({ request, response, ...utils })())
+    } else checkFile.call(this)
+  }.call({ request, response, ...utils }))
 }
 
 module.exports = handler

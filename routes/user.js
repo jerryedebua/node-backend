@@ -6,8 +6,9 @@ module.exports = [
     url: '/user/signin',
     method: 'post',
     callback: function (req, res) {
-      handleResponse.bind(this)(
-        async function () {
+      handleResponse.call(
+        this,
+        async () => {
           // Make data request or write logic here
           return {
             name: 'User 1',

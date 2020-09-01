@@ -12,7 +12,7 @@ module.exports = {
   getPresetRequest: function () {
     let parsedUrl = url.parse(this.request.url).pathname
     return require('./routes').find(
-      (route) =>
+      route =>
         route.url === parsedUrl &&
         route.method.toUpperCase() === this.request.method
     )
@@ -33,7 +33,7 @@ module.exports = {
     statusCode = 200,
     headers = { 'Content-Type': 'application/json' }
   ) {
-    Object.keys(headers).forEach(function (header) {
+    Object.keys(headers).forEach(header => {
       this.response.setHeader(header, headers[header])
     })
     this.response.statusCode = statusCode
